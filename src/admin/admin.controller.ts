@@ -169,7 +169,7 @@ export class AdminController {
 
   @Get('/concerts')
   @Render('concertdash')
-  async allconcert(@Req() req) {
+  async allconcert(@Req() req, @Res() res: Response) {
     const userdata = await this.userService.getUser(req.user);
     if (userdata.isAdmin == 1) {
       const concert = await this.concertService.findAll();
