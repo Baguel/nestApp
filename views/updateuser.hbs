@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+    <header
+      id="page-header"
+      class="z-50 flex flex-none items-center border-b border-neutral-200/75 bg-white/90 backdrop-blur-xs lg:fixed lg:start-0 lg:end-0 lg:top-0 lg:h-20"
+    >
+      <div class="container mx-auto px-4 lg:px-8 xl:max-w-7xl">
+        <div class="flex justify-between py-5 lg:py-0">
+          <!-- Left Section -->
+          <div class="flex items-center gap-2 lg:gap-6">
+            <!-- Logo -->
+            <a
+              href="javascript:void(0)"
+              class="group inline-flex items-center gap-1.5 text-lg font-bold tracking-wide text-neutral-900 hover:text-neutral-600"
+            >
+              <span>Concert<span class="font-normal">Tix</span></span>
+            </a>
+            <!-- END Logo -->
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden items-center gap-2 lg:flex">
+              <a
+                href="javascript:void(0)"
+                class="group flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-950 hover:bg-neutral-100 hover:text-neutral-950 active:bg-neutral-50"
+              >
+                <span>Dashboard</span>
+              </a>
+              <a
+                href="/admin/ticket"
+                class="group flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-800 hover:bg-neutral-100 hover:text-neutral-950 active:bg-neutral-50"
+              >
+                <span>Tickets</span>
+              </a>
+              <a
+                href="/admin/concerts"
+                class="group flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-800 hover:bg-neutral-100 hover:text-neutral-950 active:bg-neutral-50"
+              >
+                <span>Concerts</span>
+              </a>
+              <a
+                href="/admin/user"
+                class="group flex items-center gap-2 rounded-lg bg-neutral-100 px-3 py-1.5 text-sm font-medium "
+              >
+                <span>Customers</span>
+              </a>
+            </nav>
+            <!-- END Desktop Navigation -->
+          </div>
+          <!-- END Left Section -->
+
+          <!-- Right Section -->
+          <div class="flex items-center gap-2">
+            <!-- User Dropdown -->
+            <div class="relative inline-block">
+              <!-- Dropdown Toggle Button -->
+              <button
+                x-on:click="userDropdownOpen = !userDropdownOpen"
+                x-bind:aria-expanded="userDropdownOpen"
+                type="button"
+                id="dropdown-user"
+                class="inline-flex items-center justify-center gap-1 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-neutral-800 hover:border-neutral-300 hover:text-neutral-950 active:border-neutral-200"
+                aria-haspopup="true"
+              >
+                <svg
+                  class="hi-mini hi-user-circle inline-block size-5 sm:hidden"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="hidden sm:inline">John</span>
+                <svg
+                  class="hi-mini hi-chevron-down hidden size-5 opacity-40 sm:inline-block"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+              <!-- END Dropdown Toggle Button -->
+              <!-- END Dropdown -->
+            </div>
+            <!-- END User Dropdown -->
+
+            <!-- Toggle Mobile Navigation -->
+            <div class="lg:hidden">
+              <button
+                x-on:click="mobileNavOpen = !mobileNavOpen"
+                type="button"
+                class="inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-neutral-800 hover:border-neutral-300 hover:text-neutral-950 active:border-neutral-200"
+              >
+                <svg
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="hi-solid hi-menu inline-block size-5"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                    clip-rule="evenodd"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+            <!-- END Toggle Mobile Navigation -->
+          </div>
+          <!-- END Right Section -->
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-cloak x-show="mobileNavOpen" class="lg:hidden">
+          <nav class="flex flex-col gap-2 border-t border-neutral-200 py-4">
+            <a
+              href="javascript:void(0)"
+              class="group flex items-center gap-2 rounded-lg bg-neutral-100 px-3 py-1.5 text-sm font-medium text-neutral-950"
+            >
+              <span>Dashboard</span>
+            </a>
+            <a
+              href="javascript:void(0)"
+              class="group flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-800 hover:bg-neutral-100 hover:text-neutral-950 active:bg-neutral-50"
+            >
+              <span>Tickets</span>
+            </a>
+            <a
+              href="javascript:void(0)"
+              class="group flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-800 hover:bg-neutral-100 hover:text-neutral-950 active:bg-neutral-50"
+            >
+              <span>Reports</span>
+            </a>
+            <a
+              href="javascript:void(0)"
+              class="group flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm font-medium text-neutral-800 hover:bg-neutral-100 hover:text-neutral-950 active:bg-neutral-50"
+            >
+              <span>Customers</span>
+            </a>
+          </nav>
+        </div>
+        <!-- END Mobile Navigation -->
+      </div>
+    </header>
+    <section class="mt-8">
+  <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+      <h2 class="mb-4 text-xl font-bold text-gray-900">Update User</h2>
+      <form action="/admin/update/{{user._id}}" method="post">
+          <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+              <div class="sm:col-span-2">
+                  <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                  <input type="text" name="username" id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{user.username}}" placeholder="Type product name" required="">
+              </div>
+              <div class="w-full">
+                  <label for="brand" class="block mb-2 text-sm font-medium text-gray-900">email</label>
+                  <input type="text" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{user.email}}" placeholder="Product brand" required="">
+              </div>
+              <div class="w-full">
+                  <label for="price" class="block mb-2 text-sm font-medium text-gray-900">number</label>
+                  <input type="number" name="number" id="number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{user.number}}" placeholder="$299" required="">
+              </div>
+              <div>
+                  <label for="admin" class="block mb-2 text-sm font-medium text-gray-900">Admin</label>
+                  <select id="admin"  name="isAdmin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                      <option value="1">Admin</option>
+                      <option value="0">Not Admin</option>
+                  </select>
+              </div>
+          </div>
+          {{#if message}}
+            <p>{{ message }}</p>
+          {{/if}}
+          <div class="flex items-center space-x-4">
+              <button type="submit" class="text-gray-900 font-semibold text-lg bg-slate-400 p-1 rounded-lg">
+                  Update
+              </button>
+          </div>
+      </form>
+  </div>
+</section>
+</body>
+</html>

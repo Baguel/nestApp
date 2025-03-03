@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .ticket {
+            width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            color: #333;
+            position: relative;
+        }
+        .ticket-header {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .ticket-details {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .ticket-details span {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .ticket-footer {
+            font-size: 16px;
+            color: #333;
+            margin-top: 20px;
+        }
+        .ticket-footer span {
+            display: block;
+            margin-bottom: 10px;
+        }
+        .qrcode-container {
+            margin-top: 30px;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+        .qrcode-container img {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket">
+        <div class="ticket-header">
+            🎶 **TICKET CONCERT** 🎶
+        </div>
+        <div class="ticket-details">
+            <span><strong>Événement :</strong> {{tickets.concert.name}} </span>
+            <span><strong>Orchestre :</strong> {{tickets.concert.group}} </span>
+            <span><strong>Lieu :</strong> {{tickets.concert.lieu}} </span>
+            <span><strong>Date :</strong> {{tickets.concert.date}} </span>
+            <span><strong>Heure :</strong> 20h00</span>
+        </div>
+        <div class="ticket-footer">
+            <span><strong>Numéro du ticket :</strong>{{tickets._id}}</span>
+        </div>
+        <div class="qrcode-container">
+            <img src="{{tickets.qrCode}}" alt="QR"> <!-- Remplacez par le QR Code réel -->
+        </div>
+    </div>
+</body>
+</html>

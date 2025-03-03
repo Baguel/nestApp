@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Concert</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- En-tête -->
+    <nav class="bg-white shadow-md fixed w-full z-50 transition-all duration-300" id="navbar">
+    <div class="container mx-auto px-6 py-3">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center">
+          <a href="/" class="text-2xl font-bold text-indigo-600 flex items-center">
+            <i class="fas fa-music mr-2"></i>
+            <span>My Show Time</span>
+          </a>
+        </div>
+        <div class="flex items-center">
+            <div class="flex space-x-8">
+                {{#if user }}
+                    <form action="/user/user">
+                        <button class="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white transition-colors">Pofil</button>
+                    </form>
+                    {{#if users.isAdmin}}
+                        <a href="/admin/concerts" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">Dashboard</a>
+                    {{/if}}
+                    <form action="/user/logout" method="post">
+                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">Logout</button>
+                    </form>
+                {{else}}
+                    <form action="/auth/login">
+                        <button class="px-4 py-2 text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-600 hover:text-white transition-colors">Login</button>
+                    </form>
+                    <form action="/auth/register" method="post">
+                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors">Register</button>
+                    </form>
+                {{/if}}
+            </div>
+          <button class="md:hidden focus:outline-none" id="menuBtn">
+            <i class="fas fa-bars text-gray-800"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+    </div>
+  </nav>
+  
+
+    <!-- Hero Section -->
+    <section class="relative bg-cover bg-center py-40" style="background-image: url({{concert.image}});">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="container mx-auto px-6 relative z-10">
+            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4">{{concert.name}}</h1>
+            <p class="text-xl text-white mb-8">{{concert.date}} | {{concert.lieu}}</p>
+        </div>
+    </section>
+
+    <!-- Détails du concert et achat de billets -->
+    <section class="container mx-auto px-6 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Colonne de gauche : Détails du concert -->
+            <div class="md:col-span-2">
+                <h2 class="text-3xl font-bold mb-4">À propos du concert</h2>
+                <p class="text-gray-700 mb-6">
+                    {{concert.description}}
+                </p>
+                <h3 class="text-2xl font-bold mb-2">Détails de l'événement</h3>
+                <ul class="list-disc list-inside text-gray-700 mb-6">
+                    <li>Date : {{concert.date}}</li>
+                    <li>Heure : Ouverture des portes à 18h00, début du concert à 20h00</li>
+                    <li>Lieu : {{concert.lieu}}</li>
+                    <li>Durée approximative : 3 heures</li>
+                </ul>
+                <h3 class="text-2xl font-bold mb-2">Artistes en première partie</h3>
+                <ul class="list-disc list-inside text-gray-700 mb-6">
+                    <li>{{concert.artiste}}</li>
+                </ul>
+            </div>
+            <!-- Colonne de droite : Achat de billets -->
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold mb-4">Acheter des billets</h2>
+                <form action="/tickets/{{concert._id}}" method="POST">
+                    <div class="mb-4">
+                        <label for="ticket-type" class="block text-gray-700 font-bold mb-2">Type de billet</label>
+                        <select id="ticket-type" class="w-full border border-gray-300 rounded px-3 py-2">
+                            <option>Catégorie Or - 250€</option>
+                            <option>Catégorie Argent - 180€</option>
+                            <option>Catégorie Bronze - 95€</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full bg-purple-600 text-white font-bold py-3 px-4 rounded hover:bg-purple-700 transition duration-300">
+                        Acheter maintenant
+                    </button>
+                </form>
+                <p class="text-sm text-gray-600 mt-4">
+                    * Les billets sont soumis à disponibilité. Prix hors frais de réservation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carte du lieu -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-8 text-center">Lieu du concert</h2>
+            <div class="aspect-w-16 aspect-h-9">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.2976111301017!2d2.358380615674047!3d48.92449997929305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66ec0328f7ca1%3A0x9b4ca84634d93e1!2sStade%20de%20France!5e0!3m2!1sfr!2sfr!4v1645523645889!5m2!1sfr!2sfr" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
+    <section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Restez informé</h2>
+      <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Inscrivez-vous à notre newsletter pour recevoir les dernières nouvelles sur les concerts et les offres spéciales.</p>
+      <form class="flex flex-col md:flex-row justify-center max-w-lg mx-auto">
+        <input type="email" placeholder="Votre adresse email" class="px-4 py-3 rounded-l-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-600">
+        <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-r-md hover:bg-indigo-700 transition-colors mt-2 md:mt-0">S'inscrire</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">My Show Time</h3>
+          <p class="text-gray-400">La meilleure plateforme pour trouver et réserver vos concerts préférés.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Liens rapides</h4>
+          <ul class="space-y-2">
+            <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Accueil</a></li>
+            <li><a href="/concerts" class="text-gray-400 hover:text-white transition-colors">Concerts</a></li>
+            <li><a href="/about" class="text-gray-400 hover:text-white transition-colors">À propos</a></li>
+            <li><a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Nous contacter</h4>
+          <ul class="space-y-2">
+            <li class="flex items-center"><i class="fas fa-map-marker-alt mr-2"></i> <span class="text-gray-400">123 Rue de la Musique, Paris</span></li>
+            <li class="flex items-center"><i class="fas fa-phone mr-2"></i> <span class="text-gray-400">+33 1 23 45 67 89</span></li>
+            <li class="flex items-center"><i class="fas fa-envelope mr-2"></i> <span class="text-gray-400">contact@myshowtime.com</span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Suivez-nous</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="bg-indigo-600 hover:bg-indigo-700 transition-colors p-2 rounded-full">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" class="bg-indigo-600 hover:bg-indigo-700 transition-colors p-2 rounded-full">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#" class="bg-indigo-600 hover:bg-indigo-700 transition-colors p-2 rounded-full">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" class="bg-indigo-600 hover:bg-indigo-700 transition-colors p-2 rounded-full">
+              <i class="fab fa-youtube"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+        <p class="text-gray-400">&copy; 2023 My Show Time. Tous droits réservés.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
