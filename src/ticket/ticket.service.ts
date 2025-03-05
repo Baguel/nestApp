@@ -26,7 +26,7 @@ export class TicketService {
 
     const url =
       'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' +
-      `http://localhost:3000/tickets/${newTicket._id}`;
+      `https://nestapp-5n53.onrender.com/${newTicket._id}`;
     // const qrCodeImage = await QRCode.toDataURL(url);
     const update = await this.ticketModel.updateOne(
       { _id: newTicket.id },
